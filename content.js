@@ -49,7 +49,7 @@ function main(common) {
     function create_button(value, area, panel) {
         const button = document.createElement('button');
         button.title = value + 'x';
-        button.innerText = button.title;
+        button.innerHTML = `<svg width="100%" height="100%" viewBox="0 0 68 68"><text font-size="20" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#fff">${button.title}</text></svg>`;
         button.classList.add('_tap_rate_button', 'ytp-button');
         button.setAttribute('tabindex', '-1');
         button.addEventListener('click', () => {
@@ -57,11 +57,7 @@ function main(common) {
             button.blur();
         });
 
-        const span = document.createElement('span');
-        span.classList.add('_tap_rate_button', 'ytp-button');
-        span.appendChild(button);
-
-        area.insertBefore(span, panel);
+        area.insertBefore(button, panel);
     }
 
     const s = document.createElement('script');
