@@ -3,6 +3,8 @@ import(chrome.runtime.getURL('common.js')).then(common =>
 );
 
 function main(common) {
+    let init = true;
+
     new MutationObserver((mutations, observer) => {
         for (const m of mutations) {
             if (m.target.nodeName === 'DIV' && m.target.id === 'container' && m.target.classList.contains('ytd-player')) {
@@ -27,6 +29,13 @@ function main(common) {
     function apply_settings(force = false) {
         chrome.storage.local.get(common.storage, data => {
             create_buttons(data, force);
+
+            if (init) {
+                init = false;
+                document.dispatchEvent(new CustomEvent('_tap_rate_init'));
+            } else {
+                document.dispatchEvent(new CustomEvent('_tap_rate_update'));
+            }
         });
     }
 
@@ -50,7 +59,7 @@ function main(common) {
         const button = document.createElement('button');
         button.title = value + 'x';
         button.innerHTML = `<svg width="100%" height="100%" viewBox="0 0 72 72"><text font-size="20" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#fff">${button.title}</text></svg>`;
-        button.classList.add('_tap_rate_button', 'ytp-button');
+        button.classList.add('_tap_rate_button', '_tap_rate_button_' + value, 'ytp-button');
         button.setAttribute('tabindex', '-1');
         button.addEventListener('click', () => {
             document.dispatchEvent(new CustomEvent('_tap_rate', { detail: value }));
