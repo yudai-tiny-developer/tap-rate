@@ -12,7 +12,7 @@ function _tap_rate_add_class(selector, value) {
 
 function _tap_rate_activate(value) {
     _tap_rate_remove_class('button._tap_rate_active', '_tap_rate_active');
-    _tap_rate_add_class('button._tap_rate_button_' + value, '_tap_rate_active');
+    _tap_rate_add_class('button._tap_rate_button_' + value.toString().replace('.', '_'), '_tap_rate_active');
 
     if (!document.body.querySelector('button._tap_rate_active')) {
         _tap_rate_add_class('button._tap_rate_tap', '_tap_rate_active');
@@ -21,7 +21,7 @@ function _tap_rate_activate(value) {
 
 document.addEventListener('_tap_rate', e => {
     _tap_rate_remove_class('button._tap_rate_tap', '_tap_rate_tap');
-    _tap_rate_add_class('button._tap_rate_button_' + e.detail, '_tap_rate_tap');
+    _tap_rate_add_class('button._tap_rate_button_' + e.detail.toString().replace('.', '_'), '_tap_rate_tap');
 
     const player = document.body.querySelector('div#movie_player');
     player.setPlaybackRate(e.detail);
