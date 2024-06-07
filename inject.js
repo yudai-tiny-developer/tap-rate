@@ -31,7 +31,6 @@ document.addEventListener('_tap_rate_init', e => {
     const player = document.body.querySelector('div#movie_player');
     _tap_rate_activate(player.getPlaybackRate());
     player.addEventListener('onPlaybackRateChange', value => {
-        console.log('onPlaybackRateChange');
         _tap_rate_activate(value);
     });
 });
