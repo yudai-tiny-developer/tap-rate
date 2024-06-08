@@ -3,8 +3,6 @@ import(chrome.runtime.getURL('common.js')).then(common =>
 );
 
 function main(common) {
-    let init = true;
-
     new MutationObserver((mutations, observer) => {
         for (const m of mutations) {
             if (m.target.nodeName === 'DIV' && m.target.id === 'container' && m.target.classList.contains('ytd-player')) {
@@ -29,13 +27,7 @@ function main(common) {
     function apply_settings(force = false) {
         chrome.storage.local.get(common.storage, data => {
             create_buttons(data, force);
-
-            if (init) {
-                init = false;
-                document.dispatchEvent(new CustomEvent('_tap_rate_init'));
-            } else {
-                document.dispatchEvent(new CustomEvent('_tap_rate_update'));
-            }
+            document.dispatchEvent(new CustomEvent('_tap_rate_init'));
         });
     }
 
@@ -51,6 +43,7 @@ function main(common) {
             if (common.value(data.v4_enabled, common.default_v4_enabled)) { create_button(common.value(data.v4, common.default_v4), area, panel); }
             if (common.value(data.v5_enabled, common.default_v5_enabled)) { create_button(common.value(data.v5, common.default_v5), area, panel); }
             if (common.value(data.v6_enabled, common.default_v6_enabled)) { create_button(common.value(data.v6, common.default_v6), area, panel); }
+            if (common.value(data.v8_enabled, common.default_v8_enabled)) { create_button(common.value(data.v8, common.default_v8), area, panel); }
             if (common.value(data.v7_enabled, common.default_v7_enabled)) { create_button(common.value(data.v7, common.default_v7), area, panel); }
         }
     }
