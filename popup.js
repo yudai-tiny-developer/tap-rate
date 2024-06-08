@@ -53,6 +53,11 @@ function main(common, settings, progress, data) {
         container.appendChild(row);
     } {
         const row = settings.createRow(row_class);
+        row.appendChild(settings.createLabel(cell_class, common.value(data.v8, common.default_v8) + 'x'));
+        row.appendChild(settings.createToggle(cell_class, toggle_class, label_class, 'v8_enabled', data.v8_enabled, common.default_v8_enabled, common.value));
+        container.appendChild(row);
+    } {
+        const row = settings.createRow(row_class);
         row.appendChild(settings.createLabel(cell_class, common.value(data.v7, common.default_v7) + 'x'));
         row.appendChild(settings.createToggle(cell_class, toggle_class, label_class, 'v7_enabled', data.v7_enabled, common.default_v7_enabled, common.value));
         container.appendChild(row);
