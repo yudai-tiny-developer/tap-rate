@@ -13,25 +13,21 @@ function _tap_rate_update_class(remove_class, add_target_class, add_value) {
 }
 
 function _tap_rate_activate(value) {
-    if (document.body.querySelector('button._tap_rate_button._tap_rate_button_' + value)) {
-        _tap_rate_update_class('_tap_rate_active', '_tap_rate_button_' + value, '_tap_rate_active')
-    } else {
-        _tap_rate_update_class('_tap_rate_active', '_tap_rate_tap', '_tap_rate_active')
-    }
+    _tap_rate_update_class('_tap_rate_active', '_tap_rate_button_' + value.toString().replace('.', '_'), '_tap_rate_active');
 }
 
-function _tap_rate_init(value) {
-    _tap_rate_activate(value);
+function _tap_rate_onChange(e) {
+    _tap_rate_activate(e);
 }
 
 document.addEventListener('_tap_rate_init', e => {
     const player = document.body.querySelector('div#movie_player');
     _tap_rate_activate(player.getPlaybackRate());
-    player.addEventListener('onPlaybackRateChange', _tap_rate_init);
+    player.addEventListener('onPlaybackRateChange', _tap_rate_onChange);
 });
 
 document.addEventListener('_tap_rate', e => {
-    _tap_rate_update_class('_tap_rate_tap', '_tap_rate_button_' + e.detail, '_tap_rate_tap');
+    _tap_rate_update_class('_tap_rate_tap', '_tap_rate_button_' + e.detail.toString().replace('.', '_'), '_tap_rate_tap');
     const player = document.body.querySelector('div#movie_player');
     player.setPlaybackRate(e.detail);
 });
