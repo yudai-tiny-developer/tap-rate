@@ -16,23 +16,25 @@ function _tap_rate_activate(value) {
     _tap_rate_update_class('_tap_rate_active', '_tap_rate_button_' + value.toString().replace('.', '_'), '_tap_rate_active');
 }
 
-function _tap_rate_onChange(e) {
-    _tap_rate_activate(e);
-}
-
 let _tap_rate_init = true;
 
 document.addEventListener('_tap_rate_init', e => {
     const player = document.body.querySelector('div#movie_player');
-    _tap_rate_activate(player.getPlaybackRate());
-    if (_tap_rate_init) {
-        _tap_rate_init = false;
-        player.addEventListener('onPlaybackRateChange', _tap_rate_onChange);
+    if (player) {
+        _tap_rate_activate(player.getPlaybackRate());
+        if (_tap_rate_init) {
+            _tap_rate_init = false;
+            player.addEventListener('onPlaybackRateChange', e => {
+                _tap_rate_activate(e);
+            });
+        }
     }
 });
 
 document.addEventListener('_tap_rate', e => {
     _tap_rate_update_class('_tap_rate_tap', '_tap_rate_button_' + e.detail.toString().replace('.', '_'), '_tap_rate_tap');
     const player = document.body.querySelector('div#movie_player');
-    player.setPlaybackRate(e.detail);
+    if (player) {
+        player.setPlaybackRate(e.detail);
+    }
 });
