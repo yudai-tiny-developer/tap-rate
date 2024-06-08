@@ -1,3 +1,8 @@
-button._tap_rate_active {
-    stroke: rgb(255, 78, 69) !important;
+button._tap_rate_button {
+    fill: white !important;
+}
+
+button._tap_rate_button._tap_rate_active {
+    fill: #ff8983 !important;
+    font-weight: bold !important;
 }
