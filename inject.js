@@ -25,6 +25,7 @@ document.addEventListener('_tap_rate', e => {
 
     const player = document.body.querySelector('div#movie_player');
     player.setPlaybackRate(e.detail);
+    _tap_rate_activate(player.getPlaybackRate());
 });
 
 document.addEventListener('_tap_rate_init', e => {
