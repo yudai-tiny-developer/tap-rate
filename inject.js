@@ -20,10 +20,15 @@ function _tap_rate_onChange(e) {
     _tap_rate_activate(e);
 }
 
+let _tap_rate_init = true;
+
 document.addEventListener('_tap_rate_init', e => {
     const player = document.body.querySelector('div#movie_player');
     _tap_rate_activate(player.getPlaybackRate());
-    player.addEventListener('onPlaybackRateChange', _tap_rate_onChange);
+    if (_tap_rate_init) {
+        _tap_rate_init = false;
+        player.addEventListener('onPlaybackRateChange', _tap_rate_onChange);
+    }
 });
 
 document.addEventListener('_tap_rate', e => {
