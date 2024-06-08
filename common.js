@@ -6,6 +6,7 @@ export const storage = [
     'v5', 'v5_enabled',
     'v6', 'v6_enabled',
     'v7', 'v7_enabled',
+    'v8', 'v8_enabled',
 ];
 
 export const default_v1 = 0.25;
