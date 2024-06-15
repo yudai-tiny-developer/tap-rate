@@ -47,6 +47,7 @@ function main(common) {
         button.classList.add('_tap_rate_button', '_tap_rate_button_' + value.toString().replace('.', '_'), 'ytp-button');
         button.addEventListener('click', () => {
             document.dispatchEvent(new CustomEvent('_tap_rate', { detail: value }));
+            button.blur();
         });
         area.insertBefore(button, panel);
     }
