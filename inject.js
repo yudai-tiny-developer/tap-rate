@@ -1,11 +1,7 @@
-const app = document.querySelector('ytd-app');
-if (app) {
-    main();
-}
-
-function main() {
+const _tap_rate_app = document.querySelector('ytd-app');
+if (_tap_rate_app) {
     function _tap_rate_update_class(remove_class, add_target_class, add_value) {
-        for (const button of document.body.querySelectorAll('button._tap_rate_button')) {
+        for (const button of _tap_rate_app.querySelectorAll('button._tap_rate_button')) {
             const oldToken = button.classList.contains(remove_class) ? remove_class : undefined;
             const newToken = button.classList.contains(add_target_class) ? add_value : undefined;
             if (oldToken && newToken) {
@@ -25,7 +21,7 @@ function main() {
     let _tap_rate_init = true;
 
     document.addEventListener('_tap_rate_init', e => {
-        const player = document.body.querySelector('div#movie_player');
+        const player = _tap_rate_app.querySelector('div#movie_player');
         if (player) {
             _tap_rate_activate(player.getPlaybackRate());
             if (_tap_rate_init) {
@@ -39,7 +35,7 @@ function main() {
 
     document.addEventListener('_tap_rate', e => {
         _tap_rate_update_class('_tap_rate_tap', '_tap_rate_button_' + e.detail.toString().replace('.', '_'), '_tap_rate_tap');
-        const player = document.body.querySelector('div#movie_player');
+        const player = _tap_rate_app.querySelector('div#movie_player');
         if (player) {
             player.setPlaybackRate(e.detail);
         }
