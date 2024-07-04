@@ -30,3 +30,9 @@ export const default_v8_enabled = false; // 1.75
 export function value(value, defaultValue) {
     return value === undefined ? defaultValue : value;
 }
+
+export function isLiveChat(url) {
+    return url.startsWith('https://www.youtube.com/live_chat?')
+        || url.startsWith('https://www.youtube.com/live_chat_replay?')
+        ;
+}
