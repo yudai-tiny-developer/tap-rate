@@ -43,7 +43,6 @@ function main(app, common) {
     document.addEventListener('_tap_rate_init', e => {
         new MutationObserver((mutations, observer) => {
             if (app.querySelector('div.ytp-right-controls')) {
-                observer.disconnect();
                 loadSettings();
             }
         }).observe(app, { childList: true, subtree: true });
