@@ -14,8 +14,7 @@ function main(app, common) {
 
     function create_buttons(data) {
         const area = app.querySelector('div.ytp-right-controls');
-        if (area) {
-            area.querySelectorAll('button._tap_rate_button').forEach(b => b.remove());
+        if (area && !area.querySelector('button._tap_rate_button')) {
             const panel = area.querySelector('button.ytp-settings-button');
 
             if (common.value(data.v1_enabled, common.default_v1_enabled)) { create_button(common.value(data.v1, common.default_v1), area, panel); }
@@ -43,7 +42,6 @@ function main(app, common) {
     document.addEventListener('_tap_rate_init', e => {
         new MutationObserver((mutations, observer) => {
             if (app.querySelector('div.ytp-right-controls')) {
-                observer.disconnect();
                 loadSettings();
             }
         }).observe(app, { childList: true, subtree: true });
