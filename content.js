@@ -10,6 +10,7 @@ function main(app, common) {
     function update() {
         if (cache) {
             create_buttons(cache);
+            document.dispatchEvent(new CustomEvent('_tap_rate_loaded'));
         } else {
             loadSettings();
         }
@@ -19,7 +20,6 @@ function main(app, common) {
         chrome.storage.local.get(common.storage, data => {
             cache = data;
             update();
-            document.dispatchEvent(new CustomEvent('_tap_rate_loaded'));
         });
     }
 
@@ -52,7 +52,6 @@ function main(app, common) {
         button.classList.add('_tap_rate_button', '_tap_rate_button_' + value.toString().replace('.', '_'), 'ytp-button');
         button.addEventListener('click', () => {
             document.dispatchEvent(new CustomEvent('_tap_rate', { detail: value }));
-            button.blur();
         });
         area.insertBefore(button, panel);
         return button;
