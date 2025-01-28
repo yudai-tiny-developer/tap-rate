@@ -5,9 +5,20 @@ import(chrome.runtime.getURL('common.js')).then(common => {
 });
 
 function main(app, common) {
+    let cache;
+
+    function update() {
+        if (cache) {
+            create_buttons(cache);
+        } else {
+            loadSettings();
+        }
+    }
+
     function loadSettings() {
         chrome.storage.local.get(common.storage, data => {
-            create_buttons(data);
+            cache = data;
+            update();
             document.dispatchEvent(new CustomEvent('_tap_rate_loaded'));
         });
     }
@@ -50,7 +61,7 @@ function main(app, common) {
     document.addEventListener('_tap_rate_init', e => {
         new MutationObserver((mutations, observer) => {
             if (app.querySelector('div.ytp-right-controls')) {
-                loadSettings();
+                update();
             }
         }).observe(app, { childList: true, subtree: true });
         loadSettings();
