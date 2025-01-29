@@ -24,7 +24,6 @@ function main(app, common) {
     function update_buttons(data, force) {
         const area = app.querySelector('div.ytp-right-controls');
         if (area && (!area.querySelector('button._tap_rate_button') || force)) {
-            console.log('load');
             let panel = area.querySelector('button.ytp-settings-button');
             panel = update_button(data.v7, common.default_v7, area, panel, data.v7_enabled, common.default_v7_enabled);
             panel = update_button(data.v8, common.default_v8, area, panel, data.v8_enabled, common.default_v8_enabled);
