@@ -1,13 +1,16 @@
 {
     "manifest_version": 3,
     "name": "YouTube Playback Rate Control",
-    "version": "1.6.7",
+    "version": "1.7.0",
     "description": "__MSG_appDesc__",
     "default_locale": "en",
     "icons": {
         "16": "icons/16.png",
         "48": "icons/48.png",
         "128": "icons/128.png"
+    },
+    "background": {
+        "service_worker": "background.js"
     },
     "content_scripts": [
         {
@@ -44,5 +47,31 @@
     },
     "permissions": [
         "storage"
-    ]
+    ],
+    "commands": {
+        "v1": {
+            "description": "Set playback rate to 0.25x."
+        },
+        "v2": {
+            "description": "Set playback rate to 0.5x."
+        },
+        "v3": {
+            "description": "Set playback rate to 0.75x."
+        },
+        "v4": {
+            "description": "Set playback rate to 1.0x."
+        },
+        "v5": {
+            "description": "Set playback rate to 1.25x."
+        },
+        "v6": {
+            "description": "Set playback rate to 1.5x."
+        },
+        "v7": {
+            "description": "Set playback rate to 1.75x."
+        },
+        "v8": {
+            "description": "Set playback rate to 2.0x."
+        }
+    }
 }
