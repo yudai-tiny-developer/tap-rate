@@ -38,6 +38,7 @@ document.addEventListener('_tap_rate', e => {
     const player = _tap_rate_app.querySelector('div#movie_player');
     if (player) {
         player.setPlaybackRate(e.detail);
+        player.dispatchEvent(new MouseEvent('mouseout'));
     }
 });
 
