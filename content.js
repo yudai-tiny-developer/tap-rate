@@ -47,7 +47,7 @@ function main(app, common) {
         const button = document.createElement('button');
         button.style.display = 'none';
         button.classList.add('_tap_rate_button', '_tap_rate_button_' + value.toString().replace('.', '_'), 'ytp-button');
-        button.innerHTML = `<svg width="100%" height="100%" viewBox="0 0 72 72"><text font-size="20" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle">${value}x</text></svg>`;
+        button.innerHTML = `<svg width="100%" height="100%" viewBox="0 0 72 72"><text font-size="20" x="50%" y="50%" dominant-baseline="central" text-anchor="middle">${value}x</text></svg>`;
         button.addEventListener('click', () => {
             document.dispatchEvent(new CustomEvent('_tap_rate', { detail: value }));
         });
