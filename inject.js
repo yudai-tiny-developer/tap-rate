@@ -51,5 +51,5 @@
                 document.dispatchEvent(new CustomEvent('_tap_rate_init'));
             }
         }
-    }, 200);
+    }, 1000);
 })();
