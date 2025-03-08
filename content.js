@@ -102,14 +102,14 @@ function main(app, common) {
                 return;
             }
 
-            panel = area.querySelector('button.ytp-settings-button');
+            panel = area.querySelector('button.ytp-subtitles-button');
             if (!panel) {
                 return;
             }
 
             clearInterval(detect_interval);
 
-            area.insertBefore(button_v7, panel);
+            area.insertBefore(button_v7, panel.nextSibling);
             area.insertBefore(button_v8, button_v7);
             area.insertBefore(button_v6, button_v8);
             area.insertBefore(button_v5, button_v6);
