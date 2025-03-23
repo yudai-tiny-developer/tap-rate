@@ -19,6 +19,10 @@
         update_class('_tap_rate_active', '_tap_rate_button_' + value.toString().replace('.', '_'), '_tap_rate_active');
     }
 
+    function onPlaybackRateChange(e) {
+        activate(e);
+    }
+
     const app = document.querySelector('ytd-app') ?? document.body; // YouTube.com or Embedded Player
 
     let player;
@@ -37,19 +41,20 @@
         }
     });
 
-    const detect_interval = setInterval(() => {
-        player = app.querySelector('div#movie_player');
-        if (player) {
-            area = player.querySelector('div.ytp-right-controls');
-            if (area) {
-                clearInterval(detect_interval);
-
-                player.addEventListener('onPlaybackRateChange', e => {
-                    activate(e);
-                });
-
-                document.dispatchEvent(new CustomEvent('_tap_rate_init'));
-            }
+    setInterval(() => {
+        const player_c = app.querySelector('div#movie_player');
+        if (!player_c || player_c === player) {
+            return;
         }
-    }, 500);
+        player = player_c;
+
+        area = player.querySelector('div.ytp-right-controls');
+        if (!area) {
+            return;
+        }
+
+        player.addEventListener('onPlaybackRateChange', onPlaybackRateChange);
+
+        document.dispatchEvent(new CustomEvent('_tap_rate_init'));
+    }, 1000);
 })();
