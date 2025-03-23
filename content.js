@@ -90,24 +90,25 @@ function main(app, common) {
     let settings;
     let area;
     let panel;
+    let detect_interval;
 
     chrome.runtime.onMessage.addListener(shortcut_command);
 
     chrome.storage.onChanged.addListener(loadSettings);
 
     document.addEventListener('_tap_rate_init', () => {
-        const detect_interval = setInterval(() => {
-            area = app.querySelector('div.ytp-right-controls');
-            if (!area) {
+        clearInterval(detect_interval);
+        detect_interval = setInterval(() => {
+            const area_c = app.querySelector('div.ytp-right-controls');
+            if (!area_c || area_c === area) {
                 return;
             }
+            area = area_c;
 
             panel = area.querySelector('button.ytp-subtitles-button');
             if (!panel) {
                 return;
             }
-
-            clearInterval(detect_interval);
 
             area.insertBefore(button_v7, panel.nextSibling);
             area.insertBefore(button_v8, button_v7);
@@ -119,7 +120,7 @@ function main(app, common) {
             area.insertBefore(button_v1, button_v2);
 
             loadSettings();
-        }, 500);
+        }, 1000);
     });
 
     const s = document.createElement('script');
