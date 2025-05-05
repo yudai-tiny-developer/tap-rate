@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "YouTube Playback Rate Control",
-    "version": "1.8.6",
+    "version": "1.9.0",
     "description": "__MSG_appDesc__",
     "default_locale": "en",
     "icons": {
@@ -72,6 +72,30 @@
         },
         "v8": {
             "description": "Set playback rate to 2.0x."
+        },
+        "w1": {
+            "description": "Set playback rate to 3.0x."
+        },
+        "w2": {
+            "description": "Set playback rate to 4.0x."
+        },
+        "w3": {
+            "description": "Set playback rate to 5.0x."
+        },
+        "w4": {
+            "description": "Set playback rate to 6.0x."
+        },
+        "w5": {
+            "description": "Set playback rate to 8.0x."
+        },
+        "w6": {
+            "description": "Set playback rate to 10.0x."
+        },
+        "w7": {
+            "description": "Set playback rate to 12.0x."
+        },
+        "w8": {
+            "description": "Set playback rate to 16.0x."
         }
     }
 }
