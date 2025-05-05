@@ -14,6 +14,12 @@ div.row {
     display: table-row;
 }
 
+div.inner-table-cell {
+    display: table-cell;
+    vertical-align: top;
+    padding: 8px;
+}
+
 div.cell {
     display: table-cell;
     vertical-align: middle;

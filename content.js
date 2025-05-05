@@ -23,6 +23,14 @@ function main(app, common) {
             update_button(button_v6, settings.v6, common.default_v6, settings.v6_enabled, common.default_v6_enabled);
             update_button(button_v7, settings.v7, common.default_v7, settings.v7_enabled, common.default_v7_enabled);
             update_button(button_v8, settings.v8, common.default_v8, settings.v8_enabled, common.default_v8_enabled);
+            update_button(button_w1, settings.w1, common.default_w1, settings.w1_enabled, common.default_w1_enabled);
+            update_button(button_w2, settings.w2, common.default_w2, settings.w2_enabled, common.default_w2_enabled);
+            update_button(button_w3, settings.w3, common.default_w3, settings.w3_enabled, common.default_w3_enabled);
+            update_button(button_w4, settings.w4, common.default_w4, settings.w4_enabled, common.default_w4_enabled);
+            update_button(button_w5, settings.w5, common.default_w5, settings.w5_enabled, common.default_w5_enabled);
+            update_button(button_w6, settings.w6, common.default_w6, settings.w6_enabled, common.default_w6_enabled);
+            update_button(button_w7, settings.w7, common.default_w7, settings.w7_enabled, common.default_w7_enabled);
+            update_button(button_w8, settings.w8, common.default_w8, settings.w8_enabled, common.default_w8_enabled);
         }
     }
 
@@ -71,6 +79,30 @@ function main(app, common) {
                 case 'v8':
                     value = common.value(settings.v7, common.default_v7);
                     break;
+                case 'w1':
+                    value = common.value(settings.w1, common.default_w1);
+                    break;
+                case 'w2':
+                    value = common.value(settings.w2, common.default_w2);
+                    break;
+                case 'w3':
+                    value = common.value(settings.w3, common.default_w3);
+                    break;
+                case 'w4':
+                    value = common.value(settings.w4, common.default_w4);
+                    break;
+                case 'w5':
+                    value = common.value(settings.w5, common.default_w5);
+                    break;
+                case 'w6':
+                    value = common.value(settings.w6, common.default_w6);
+                    break;
+                case 'w7':
+                    value = common.value(settings.w7, common.default_w7);
+                    break;
+                case 'w8':
+                    value = common.value(settings.w8, common.default_v8);
+                    break;
                 default:
                     return;
             }
@@ -86,6 +118,14 @@ function main(app, common) {
     const button_v6 = create_button();
     const button_v7 = create_button();
     const button_v8 = create_button();
+    const button_w1 = create_button();
+    const button_w2 = create_button();
+    const button_w3 = create_button();
+    const button_w4 = create_button();
+    const button_w5 = create_button();
+    const button_w6 = create_button();
+    const button_w7 = create_button();
+    const button_w8 = create_button();
 
     let settings;
     let area;
@@ -114,7 +154,15 @@ function main(app, common) {
 
             clearInterval(detect_interval);
 
-            area.insertBefore(button_v7, panel.nextSibling);
+            area.insertBefore(button_w8, panel.nextSibling);
+            area.insertBefore(button_w7, button_w8);
+            area.insertBefore(button_w6, button_w7);
+            area.insertBefore(button_w5, button_w6);
+            area.insertBefore(button_w4, button_w5);
+            area.insertBefore(button_w3, button_w4);
+            area.insertBefore(button_w2, button_w3);
+            area.insertBefore(button_w1, button_w2);
+            area.insertBefore(button_v7, button_w1);
             area.insertBefore(button_v8, button_v7);
             area.insertBefore(button_v6, button_v8);
             area.insertBefore(button_v5, button_v6);
