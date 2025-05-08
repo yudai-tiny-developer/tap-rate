@@ -19,6 +19,23 @@
         update_class('_tap_rate_active', '_tap_rate_button_' + value.toString().replace('.', '_'), '_tap_rate_active');
     }
 
+    function onPlaybackRateChange() {
+        const v = video_instance();
+        if (v) {
+            activate(v.playbackRate);
+        }
+    }
+
+    function video_instance() {
+        if (!video?.parentNode && player) {
+            video = player.querySelector('video.html5-main-video');
+            if (video) {
+                video.addEventListener('ratechange', onPlaybackRateChange);
+            }
+        }
+        return video;
+    }
+
     const app = document.querySelector('ytd-app') ?? document.body; // YouTube.com or Embedded Player
 
     let player;
@@ -26,22 +43,21 @@
     let area;
 
     document.addEventListener('_tap_rate_loaded', () => {
-        if (player) {
-            if (video) {
-                activate(video.playbackRate);
-            } else {
-                activate(player.getPlaybackRate());
-            }
+        const v = video_instance();
+        if (v) {
+            activate(v.playbackRate);
         }
     });
 
     document.addEventListener('_tap_rate', e => {
         if (player) {
             player.setPlaybackRate(e.detail);
-            if (video) {
-                video.playbackRate = e.detail;
+
+            const v = video_instance();
+            if (v) {
+                v.playbackRate = e.detail;
             }
-            activate(e.detail);
+
             setTimeout(() => player.dispatchEvent(new MouseEvent('mouseout')), 500);
         }
     });
@@ -52,11 +68,6 @@
             return;
         }
 
-        video = app.querySelector('video.html5-main-video');
-        if (!video) {
-            return;
-        }
-
         area = player.querySelector('div.ytp-right-controls');
         if (!area) {
             return;
@@ -64,6 +75,8 @@
 
         clearInterval(detect_interval);
 
+        player.addEventListener('onPlaybackRateChange', onPlaybackRateChange);
+        video_instance();
         document.dispatchEvent(new CustomEvent('_tap_rate_init'));
     }, 500);
 })();
