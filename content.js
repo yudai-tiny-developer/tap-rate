@@ -39,7 +39,11 @@ function main(app, common) {
         const detail = label.toString().replace('.', '_');
         button.style.display = common.value(enabled, default_enabled) ? '' : 'none';
         button.classList.add('_tap_rate_button', '_tap_rate_button_' + detail, 'ytp-button');
-        button.innerHTML = `<svg width="100%" height="100%" viewBox="0 0 72 72"><text font-size="20" x="50%" y="50%" dominant-baseline="central" text-anchor="middle">${label}x</text></svg>`;
+        if (new_style) {
+            button.innerHTML = `<svg width="75%" height="75%" viewBox="0 0 72 72"><text font-size="20" x="25%" y="45%">${label}x</text></svg>`;
+        } else {
+            button.innerHTML = `<svg width="100%" height="100%" viewBox="0 0 72 72"><text font-size="20" x="50%" y="50%" dominant-baseline="central" text-anchor="middle">${label}x</text></svg>`;
+        }
         button.addEventListener('click', () => {
             document.dispatchEvent(new CustomEvent('_tap_rate', { detail: label }));
         });
@@ -130,6 +134,7 @@ function main(app, common) {
     let settings;
     let area;
     let panel;
+    let new_style;
 
     chrome.runtime.onMessage.addListener(shortcut_command);
 
@@ -142,9 +147,16 @@ function main(app, common) {
                 return;
             }
 
-            area = player.querySelector('div.ytp-right-controls');
+            area = player.querySelector('div.ytp-right-controls-left'); // new style
             if (!area) {
-                return;
+                area = player.querySelector('div.ytp-right-controls'); // old style
+                if (!area) {
+                    return;
+                } else {
+                    new_style = false;
+                }
+            } else {
+                new_style = true;
             }
 
             panel = area.querySelector('button.ytp-subtitles-button');
