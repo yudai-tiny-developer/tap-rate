@@ -39,7 +39,7 @@ function main(app, common) {
         const detail = label.toString().replace('.', '_');
         button.style.display = common.value(enabled, default_enabled) ? 'inline-flex' : 'none';
         button.classList.add('_tap_rate_button', '_tap_rate_button_' + detail, 'ytp-button');
-        button.innerHTML = `<span class="ytp-live">${label}x</span>`;
+        button.innerHTML = `<span class="ytp-live" translate="no">${label}x</span>`;
         button.addEventListener('click', () => {
             document.dispatchEvent(new CustomEvent('_tap_rate', { detail: label }));
         });
