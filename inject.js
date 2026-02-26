@@ -36,8 +36,6 @@
         return video;
     }
 
-    const app = document.querySelector('ytd-app') ?? document.body; // YouTube.com or Embedded Player
-
     let player;
     let video;
     let area;
@@ -63,7 +61,7 @@
     });
 
     const detect_interval = setInterval(() => {
-        player = app.querySelector('div#movie_player');
+        player = document.getElementById("movie_player");
         if (!player) {
             return;
         }
