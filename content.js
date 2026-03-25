@@ -140,26 +140,43 @@ function main(common) {
         clearInterval(detect_interval);
         detect_interval = setInterval(() => {
             const player = document.getElementById("movie_player");
-            if (!player) {
-                return;
-            }
+            if (!player) return;
 
-            area = player.querySelector('div.ytp-right-controls-left'); // new style
-            if (!area) {
-                area = player.querySelector('div.ytp-right-controls'); // old style
-                if (!area) {
-                    return;
-                }
-            }
+            const action_menu = document.getElementsByTagName('player-fullscreen-action-menu')?.[0];
+            if (action_menu) { // new-style YouTube embedded player
+                area = action_menu.querySelector('div.quick-actions-wrapper');
+                if (!area) return;
 
-            panel = area.querySelector('button.ytp-subtitles-button');
-            if (!panel) {
-                return;
+                panel = action_menu.querySelector('div.fullscreen-watch-next-entrypoint-wrapper');
+                if (!panel) return;
+
+                button_v1.classList.add('_tap_rate_button_new_embedded_player');
+                button_v2.classList.add('_tap_rate_button_new_embedded_player');
+                button_v3.classList.add('_tap_rate_button_new_embedded_player');
+                button_v4.classList.add('_tap_rate_button_new_embedded_player');
+                button_v5.classList.add('_tap_rate_button_new_embedded_player');
+                button_v6.classList.add('_tap_rate_button_new_embedded_player');
+                button_v7.classList.add('_tap_rate_button_new_embedded_player');
+                button_v8.classList.add('_tap_rate_button_new_embedded_player');
+                button_w1.classList.add('_tap_rate_button_new_embedded_player');
+                button_w2.classList.add('_tap_rate_button_new_embedded_player');
+                button_w3.classList.add('_tap_rate_button_new_embedded_player');
+                button_w4.classList.add('_tap_rate_button_new_embedded_player');
+                button_w5.classList.add('_tap_rate_button_new_embedded_player');
+                button_w6.classList.add('_tap_rate_button_new_embedded_player');
+                button_w7.classList.add('_tap_rate_button_new_embedded_player');
+                button_w8.classList.add('_tap_rate_button_new_embedded_player');
+            } else {
+                area = player.querySelector('div.ytp-right-controls-left');
+                if (!area) return;
+
+                panel = area.querySelector('button.ytp-subtitles-button');
+                if (!panel) return;
             }
 
             clearInterval(detect_interval);
 
-            area.insertBefore(button_w8, panel.nextSibling);
+            area.insertBefore(button_w8, panel);
             area.insertBefore(button_w7, button_w8);
             area.insertBefore(button_w6, button_w7);
             area.insertBefore(button_w5, button_w6);
