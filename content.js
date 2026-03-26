@@ -127,6 +127,25 @@ function main(common) {
     const button_w7 = create_button();
     const button_w8 = create_button();
 
+    const button_container = document.createElement('div');
+    button_container.classList.add('_tap_rate_button_container');
+    button_container.appendChild(button_v1);
+    button_container.appendChild(button_v2);
+    button_container.appendChild(button_v3);
+    button_container.appendChild(button_v4);
+    button_container.appendChild(button_v5);
+    button_container.appendChild(button_v6);
+    button_container.appendChild(button_v8);
+    button_container.appendChild(button_v7);
+    button_container.appendChild(button_w1);
+    button_container.appendChild(button_w2);
+    button_container.appendChild(button_w3);
+    button_container.appendChild(button_w4);
+    button_container.appendChild(button_w5);
+    button_container.appendChild(button_w6);
+    button_container.appendChild(button_w7);
+    button_container.appendChild(button_w8);
+
     let settings;
     let area;
     let panel;
@@ -149,23 +168,6 @@ function main(common) {
 
                 panel = action_menu.querySelector('div.fullscreen-watch-next-entrypoint-wrapper');
                 if (!panel) return;
-
-                button_v1.classList.add('_tap_rate_button_new_embedded_player');
-                button_v2.classList.add('_tap_rate_button_new_embedded_player');
-                button_v3.classList.add('_tap_rate_button_new_embedded_player');
-                button_v4.classList.add('_tap_rate_button_new_embedded_player');
-                button_v5.classList.add('_tap_rate_button_new_embedded_player');
-                button_v6.classList.add('_tap_rate_button_new_embedded_player');
-                button_v7.classList.add('_tap_rate_button_new_embedded_player');
-                button_v8.classList.add('_tap_rate_button_new_embedded_player');
-                button_w1.classList.add('_tap_rate_button_new_embedded_player');
-                button_w2.classList.add('_tap_rate_button_new_embedded_player');
-                button_w3.classList.add('_tap_rate_button_new_embedded_player');
-                button_w4.classList.add('_tap_rate_button_new_embedded_player');
-                button_w5.classList.add('_tap_rate_button_new_embedded_player');
-                button_w6.classList.add('_tap_rate_button_new_embedded_player');
-                button_w7.classList.add('_tap_rate_button_new_embedded_player');
-                button_w8.classList.add('_tap_rate_button_new_embedded_player');
             } else {
                 area = player.querySelector('div.ytp-right-controls-left');
                 if (!area) return;
@@ -176,22 +178,7 @@ function main(common) {
 
             clearInterval(detect_interval);
 
-            area.insertBefore(button_w8, panel);
-            area.insertBefore(button_w7, button_w8);
-            area.insertBefore(button_w6, button_w7);
-            area.insertBefore(button_w5, button_w6);
-            area.insertBefore(button_w4, button_w5);
-            area.insertBefore(button_w3, button_w4);
-            area.insertBefore(button_w2, button_w3);
-            area.insertBefore(button_w1, button_w2);
-            area.insertBefore(button_v7, button_w1);
-            area.insertBefore(button_v8, button_v7);
-            area.insertBefore(button_v6, button_v8);
-            area.insertBefore(button_v5, button_v6);
-            area.insertBefore(button_v4, button_v5);
-            area.insertBefore(button_v3, button_v4);
-            area.insertBefore(button_v2, button_v3);
-            area.insertBefore(button_v1, button_v2);
+            area.insertBefore(button_container, panel);
 
             loadSettings();
         }, 500);
