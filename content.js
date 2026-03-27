@@ -39,7 +39,7 @@ function main(common) {
         const detail = label.toString().replace('.', '_');
         button.style.display = common.value(enabled, default_enabled) ? 'inline-flex' : 'none';
         button.classList.add('_tap_rate_button', '_tap_rate_button_' + detail, 'ytp-button');
-        button.innerHTML = `<span class="ytp-live" translate="no">${label}x</span>`;
+        button.innerHTML = `<span translate="no">${label}x</span>`;
         button.addEventListener('click', () => {
             document.dispatchEvent(new CustomEvent('_tap_rate', { detail: label }));
         });
@@ -51,7 +51,61 @@ function main(common) {
         return button;
     }
 
-    const shortcut_command = command => {
+    function create_container() {
+        const div = document.createElement('div');
+        div.classList.add('_tap_rate_button_container');
+        div.appendChild(button_v1);
+        div.appendChild(button_v2);
+        div.appendChild(button_v3);
+        div.appendChild(button_v4);
+        div.appendChild(button_v5);
+        div.appendChild(button_v6);
+        div.appendChild(button_v8);
+        div.appendChild(button_v7);
+        div.appendChild(button_w1);
+        div.appendChild(button_w2);
+        div.appendChild(button_w3);
+        div.appendChild(button_w4);
+        div.appendChild(button_w5);
+        div.appendChild(button_w6);
+        div.appendChild(button_w7);
+        div.appendChild(button_w8);
+        return div;
+    }
+
+    function append_container() {
+        function append_container_internal() {
+            if (common.isEmbed(location.href)) {
+                const area = document.getElementsByTagName('player-fullscreen-action-menu')[0]?.querySelector('div.quick-actions-wrapper');
+                if (!area) return;
+
+                const panel = area.querySelector('div.fullscreen-watch-next-entrypoint-wrapper');
+                if (!panel) return;
+
+                if (!area.contains(container)) {
+                    area.insertBefore(container, panel);
+                    document.dispatchEvent(new CustomEvent('_tap_rate_loaded'));
+                }
+            } else {
+                const area = player.querySelector('div.ytp-right-controls-left');
+                if (!area) return;
+
+                const panel = area.querySelector('button.ytp-subtitles-button');
+                if (!panel) return;
+
+                if (!area.contains(container)) {
+                    area.insertBefore(container, panel);
+                    document.dispatchEvent(new CustomEvent('_tap_rate_loaded'));
+                }
+            }
+        }
+
+        clearInterval(append_container_interval);
+        append_container_interval = setInterval(append_container_internal, 500);
+        append_container_internal();
+    }
+
+    function shortcut_command(command) {
         if (settings) {
             let value;
             switch (command) {
@@ -126,61 +180,25 @@ function main(common) {
     const button_w6 = create_button();
     const button_w7 = create_button();
     const button_w8 = create_button();
-
-    const button_container = document.createElement('div');
-    button_container.classList.add('_tap_rate_button_container');
-    button_container.appendChild(button_v1);
-    button_container.appendChild(button_v2);
-    button_container.appendChild(button_v3);
-    button_container.appendChild(button_v4);
-    button_container.appendChild(button_v5);
-    button_container.appendChild(button_v6);
-    button_container.appendChild(button_v8);
-    button_container.appendChild(button_v7);
-    button_container.appendChild(button_w1);
-    button_container.appendChild(button_w2);
-    button_container.appendChild(button_w3);
-    button_container.appendChild(button_w4);
-    button_container.appendChild(button_w5);
-    button_container.appendChild(button_w6);
-    button_container.appendChild(button_w7);
-    button_container.appendChild(button_w8);
+    const container = create_container();
 
     let settings;
-    let area;
-    let panel;
+    let player;
     let detect_interval;
-
-    chrome.runtime.onMessage.addListener(shortcut_command);
-
-    chrome.storage.onChanged.addListener(loadSettings);
+    let append_container_interval;
 
     document.addEventListener('_tap_rate_init', () => {
         clearInterval(detect_interval);
         detect_interval = setInterval(() => {
-            const player = document.getElementById("movie_player");
+            player = document.getElementById("movie_player");
             if (!player) return;
-
-            const action_menu = document.getElementsByTagName('player-fullscreen-action-menu')?.[0];
-            if (action_menu) { // new-style YouTube embedded player
-                area = action_menu.querySelector('div.quick-actions-wrapper');
-                if (!area) return;
-
-                panel = action_menu.querySelector('div.fullscreen-watch-next-entrypoint-wrapper');
-                if (!panel) return;
-            } else {
-                area = player.querySelector('div.ytp-right-controls-left');
-                if (!area) return;
-
-                panel = area.querySelector('button.ytp-subtitles-button');
-                if (!panel) return;
-            }
 
             clearInterval(detect_interval);
 
-            area.insertBefore(button_container, panel);
-
+            append_container();
+            chrome.storage.onChanged.addListener(loadSettings);
             loadSettings();
+            chrome.runtime.onMessage.addListener(shortcut_command);
         }, 500);
     });
 

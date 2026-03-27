@@ -18,64 +18,50 @@
     }
 
     function onPlaybackRateChange() {
-        const v = video_instance();
-        if (v) {
-            activate(v.playbackRate);
-        }
+        const video = video_instance();
+        if (!video) return;
+
+        activate(video.playbackRate);
     }
 
     function video_instance() {
-        if (!video?.parentNode && player) {
-            video = player.querySelector('video.html5-main-video');
-            if (video) {
-                video.addEventListener('ratechange', onPlaybackRateChange);
+        if (!video_cache?.parentNode && player) {
+            video_cache = player.querySelector('video.html5-main-video');
+            if (video_cache) {
+                video_cache.addEventListener('ratechange', onPlaybackRateChange);
             }
         }
-        return video;
+        return video_cache;
     }
 
     let player;
-    let video;
-    let area;
+    let video_cache;
 
     document.addEventListener('_tap_rate_loaded', () => {
-        const v = video_instance();
-        if (v) {
-            activate(v.playbackRate);
-        }
+        const video = video_instance();
+        if (!video) return;
+
+        activate(video.playbackRate);
     });
 
     document.addEventListener('_tap_rate', e => {
-        if (player) {
-            player.setPlaybackRate(e.detail);
+        const video = video_instance();
+        if (!video) return;
 
-            const v = video_instance();
-            if (v) {
-                v.playbackRate = e.detail;
-            }
-
-            setTimeout(() => player.dispatchEvent(new MouseEvent('mouseout')), 500);
-        }
+        player.setPlaybackRate(e.detail);
+        video.playbackRate = e.detail;
+        setTimeout(() => player.dispatchEvent(new MouseEvent('mouseout')), 500);
     });
 
     const detect_interval = setInterval(() => {
         player = document.getElementById("movie_player");
         if (!player) return;
 
-        const action_menu = document.getElementsByTagName('player-fullscreen-action-menu')?.[0];
-        if (action_menu) { // new-style YouTube embedded player
-            area = action_menu.querySelector('div.quick-actions-wrapper');
-            if (!area) return;
-        } else {
-            area = player.querySelector('div.ytp-right-controls');
-            if (!area) return;
-
-        }
-
         clearInterval(detect_interval);
 
         player.addEventListener('onPlaybackRateChange', onPlaybackRateChange);
         video_instance();
+
         document.dispatchEvent(new CustomEvent('_tap_rate_init'));
     }, 500);
 })();
